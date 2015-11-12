@@ -3,7 +3,7 @@ from setuptools import setup, find_packages
 
 
 # Get the long description from the relevant file
-with codecs_open('README.rst', encoding='utf-8') as f:
+with codecs_open('README.md', encoding='utf-8') as f:
     long_description = f.read()
 
 
@@ -21,7 +21,7 @@ setup(name='lightening_alert',
       include_package_data=True,
       zip_safe=False,
       install_requires=[
-          'click'
+          'click', 'quadkey'
       ],
       extras_require={
           'test': ['pytest'],
