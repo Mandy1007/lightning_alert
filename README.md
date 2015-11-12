@@ -48,3 +48,9 @@ Suppose we have N assets and M lightning strikes, the time complexity is O(N+M).
 If the asset .json object of a specific owner was invalid (e.g. missing quadkey or assetsOwner information), the program will just ignore this asset information and printed out "invalid assest input: " with red color. If one lightning strike .json object was invalid, smilarly the program will ignore this strike information and printed out "invalid strike input: " with red color.
 
 ##Potential improvement
+
+For further improvement we may consider the following:
+ - If the lightning data is very large and the asset data is relatively small, we may want to do an early stop. As soon as we detect the asset dictionary is empty we stop the whole process. By doing this, we could speed up the total running time.
+ - If the asset data is very large, building a dictionary may spend a lot of memory. Thus, we could use a Trie data structure instead of a dictionary here. The advantages of using Trie for large asset data are: higher memory efficiency, faster on average at insertion, and also generally faster than hash table for small keys by avoiding hash function.
+
+So above are two strategies to do the possible further improvement.
