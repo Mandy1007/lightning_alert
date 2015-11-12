@@ -16,7 +16,7 @@ def cli(assets_file):
             else:
                 assets_dict[asset["quadKey"]].append((asset["assetOwner"], asset["assetName"]))
         except Exception as e:
-            click.echo(click.style("Invalid asset input #%s: "+str(asset) % count_aline,fg = 'red'))
+            click.echo(click.style("Invalid asset input #%s: "% count_aline + str(asset),fg = 'red'))
     """Since quadkey might not be accurate enough
     there might be more than one asset owners sharing a same quadkey
     """
@@ -36,4 +36,4 @@ def cli(assets_file):
                     click.echo('lightning alert for %s : %s' % (asset[0], asset[1]))
                 del assets_dict[qk.key] # to prevent alerting several times
         except Exception as e:
-            click.echo(click.style("Invalid strike input #%s: "+str(line) % count_lline, fg = 'red'))
+            click.echo(click.style("Invalid strike input #%s: "% count_lline + str(line), fg = 'red'))
