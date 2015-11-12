@@ -7,19 +7,23 @@ def cli(assets_file):
     with open(assets_file) as f:
         assets_data = json.load(f)
     assets_dict = {}  # save the data as a dict format to improve execution efficiency
+    count_aline = 0
     for asset in assets_data:
+        count_aline += 1
         try:
             if asset["quadKey"] not in assets_dict:
                 assets_dict[asset["quadKey"]] = [(asset["assetOwner"], asset["assetName"])]
             else:
                 assets_dict[asset["quadKey"]].append((asset["assetOwner"], asset["assetName"]))
         except Exception as e:
-            click.echo(click.style("Invalid asset input: "+str(asset),fg = 'red'))
+            click.echo(click.style("Invalid asset input: "+str(asset)+ " in line %s" % count_aline,fg = 'red'))
     """Since quadkey might not be accurate enough
     there might be more than one asset owners sharing a same quadkey
     """
+    count_lline = 0
     for line in sys.stdin:
         lightning_data = json.loads(line)
+        count_lline += 1
         try:
             if lightning_data["flashType"] == 9: # exclude flashType is 'heartbeat'
                 continue
@@ -32,4 +36,4 @@ def cli(assets_file):
                     click.echo('lightning alert for %s : %s' % (asset[0], asset[1]))
                 del assets_dict[qk.key] # to prevent alerting several times
         except Exception as e:
-            click.echo(click.style("Invalid strike input: "+str(line), fg = 'red'))
+            click.echo(click.style("Invalid strike input: "+str(line) + " in line %s" % count_lline, fg = 'red'))
